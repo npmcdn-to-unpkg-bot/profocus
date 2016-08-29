@@ -1,0 +1,248 @@
+@extends('template')
+
+@section('title')
+    {{ $page[0]['title'] }}
+@stop
+
+@section('content')
+
+  <div class="tp-fullscreen-container revolution">
+    <div class="tp-fullscreen">
+      <ul>
+
+        @foreach( $slider as $slide )
+
+            @if( $slide['type'] == 'img' )
+                  <li data-transition="fade"> <img src="{{ url($slide['path']) }}"  alt="" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat" />
+                      <h1 class="tp-caption large sfr" data-x="30" data-y="263" data-speed="900" data-start="800" data-easing="Sine.easeOut">{{ $slide['title'] }}</h1>
+                      <div class="tp-caption medium sfr" data-x="30" data-y="348" data-speed="900" data-start="1500" data-easing="Sine.easeOut">{!! $slide['body'] !!}</div>
+                  </li>
+            @else
+                  <li data-transition="fade"> <img src="{{ url($slide['cover']) }}" alt="" data-bgfit="cover" data-bgposition="center top" data-bgrepeat="no-repeat" />
+                      <div class="tp-caption large text-center sfb" data-x="center" data-y="293" data-speed="900" data-start="800" data-endspeed="100" data-easing="Sine.easeOut" style="z-index: 2;">{{ $slide['title'] }}</div>
+                      <div class="tp-caption medium text-center sfb" data-x="center" data-y="387" data-speed="900" data-start="1500" data-endspeed="100" data-easing="Sine.easeOut" style="z-index: 2;">{!! $slide['body'] !!}</div>
+                      <div class="tp-caption tp-fade fadeout fullscreenvideo"
+                           data-x="0"
+                           data-y="0"
+                           data-speed="1000"
+                           data-start="1100"
+                           data-easing="Power4.easeOut"
+                           data-elementdelay="0.01"
+                           data-endelementdelay="0.1"
+                           data-endspeed="1500"
+                           data-endeasing="Power4.easeIn"
+                           data-autoplay="true"
+                           data-autoplayonlyfirsttime="false"
+                           data-nextslideatend="true"
+                           data-dottedoverlay="twoxtwo"
+                           data-volume="mute" data-forceCover="1" data-aspectratio="16:9" data-forcerewind="on" style="z-index: 1;">
+                          <video class=""  preload="none" width="100%" height="100%"
+                                 poster='style/video/nyc.jpg'>
+                              <source src='{{ url($slide['mp4']) }}' type='video/mp4' />
+                              <source src='{{ url($slide['webm']) }}' type='video/webm' />
+                          </video>
+                      </div>
+                  </li>
+            @endif
+        @endforeach
+
+
+      </ul>
+      <div class="tp-bannertimer tp-bottom"></div>
+    </div>
+    <!-- /.tp-fullscreen-container -->
+  </div>
+  <!-- /.revolution -->
+  <table border="1">
+
+
+</table>
+  <div class="light-wrapper">
+    <div class="container inner">
+      <!-- <h3 class="section-title">фотографы</h3>
+      <div class="hr5" style="margin-top: 20px; margin-bottom: 50px;"></div> -->
+      <!-- /.thin -->
+      <div class="row">
+
+          @foreach( $page as $info )
+        <div class="col-sm-4">
+          <div class="caption-overlay">
+            <figure><a href="" onclick="return false"><img src="{{ url($info['thumbnail']) }}" alt="{{ $info['title'] }} " /></a></figure>
+            <div class="caption bottom-right">
+              <div class="title">
+                <h3 class="main-title layer">{{ $info['title'] }} </h3>
+              </div>
+              <!--/.title -->
+            </div>
+            <!--/.caption -->
+          </div>
+        </div>
+
+        <div class="col-sm-8">
+            {{ $info['body'] }}
+        </div>
+        @endforeach
+
+        <!-- /column -->
+      </div>
+
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.light-wrapper -->
+
+
+
+
+
+  <div class="dark-wrapper">
+      <div class="container inner2">
+        <div class="blog grid-view col3">
+          <div class="blog-posts text-boxes">
+
+
+              <div class="isotop row">
+
+                  @foreach( $news as $article )
+
+                      <div class="col-sm-6 col-md-4 ggg">
+                          <div class="post">
+                              <figure class="main"><a href="{{ url("/post/" . $article['id']) }}">
+                                      <img src="{{ $article['cropped'] }}"  alt=""></a></figure>
+                              <div class="box text-center">
+                                  <div class="category cat9"><span><a href="javascript:return false;">Новости</a></span></div>
+                                  <h4 class="post-title"><a href="{{ url("/post/" . $article['id']) }}" title="{{ $article['title'] }}">{{ str_limit($article['title'],25) }}</a></h4>
+                                  <div class="meta">
+                    <span class="date">
+                    {{ $article['date'] }}
+                    </span>
+                                  </div>
+
+                                  {!! str_limit($article['body'], 100) !!}
+                              </div>
+                              <!-- /.box -->
+                          </div>
+                      </div>
+                      <!-- /column -->
+
+                  @endforeach
+
+
+              </div>
+            <!-- /.isotope -->
+          </div>
+          <!-- /.blog-posts -->
+            <div class="pagination1">
+                <?php echo $news->render(); ?>
+            </div>
+
+        </div>
+        <!-- /.blog -->
+      </div>
+      <!--/.container -->
+    </div>
+  <!-- /.pagination -->
+
+
+@stop
+
+
+@section('footer')
+
+<footer class="footer inverse-wrapper">
+    <div class="container inner">
+        <div class="row">
+
+            <div class="col-sm-8">
+
+            </div>
+            <!-- /column -->
+
+            <div class="col-sm-4">
+                <div class="widget">
+                    <div class="contact-info">
+                        <i class="fa fa-map-marker"></i> Полякова 27, г. Херсон<br>
+                        <i class="fa fa-phone"> +380500864888</i><br>
+                        <i class="fa fa-envelope"></i>
+                        <a href="" onclick="return false;"> info@profocus-studio.com</a> </div>
+                </div>
+                <!-- /.widget -->
+
+            </div>
+            <!-- /column -->
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- .container -->
+
+    <!-- .sub-footer -->
+</footer>
+<script>
+    $(function(){
+
+        var $container = $('.isotop');
+
+        $container.imagesLoaded(function(){
+            $container.masonry({
+                itemSelector: '.ggg',
+                columnWidth: 100
+            });
+        });
+
+        $container.infinitescroll({
+                    navSelector  : '.pagination1',    // селектор контейнера для навигации по старинцам
+                    nextSelector : '.pagination ul li a:last-child',  // селектор для навигации
+                    itemSelector : '.ggg',     // селектор блоков, к которым применяются эффекты
+                    donetext  : 'Больше нет страниц для загрузки!',
+                    loadingImg : 'http://i.imgur.com/6RMhx.gif', // изображение ajaxljader
+                    debug: false, // выводит ошибки на консоль
+                    errorCallback: function() {
+                        // сообщение об ошибках исчеазет по истечении 2 секундной анимации
+                        $('#infscr-loading').animate({opacity: .8},2000).fadeOut('normal');
+                    }
+                },
+                // вызываем Masonry
+                function( newElements ) {
+                    var $newElems = $( newElements );
+                    // запускаем эффекты только после полной загрузки изображений
+                    $newElems.imagesLoaded(function(){
+                        $container.masonry( 'appended', $newElems, true );
+                    });
+                }
+        );
+
+    });
+</script>
+
+
+
+
+
+/*        $(document).ready(function(){
+            $('.blog-posts').infinitescroll({
+
+                navSelector  : ".pagination1",
+                // selector for the paged navigation (it will be hidden)
+                nextSelector : ".pagination li a:last-child",
+                // selector for the NEXT link (to page 2)
+                itemSelector : ".ggg",
+                // selector for all items you'll retrieve
+            });
+            $('.isotop').masonry({
+                // options...
+                itemSelector: '.ggg',
+                columnWidth: '.ggg'
+            });
+        })*/
+
+
+
+
+
+
+@stop
+
+
