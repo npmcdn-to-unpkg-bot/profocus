@@ -332,7 +332,7 @@
 
 
 
-<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
 
 <script src="{{ URL::asset('admin/js/plugins/switchery/switchery.js') }}"></script>
 
